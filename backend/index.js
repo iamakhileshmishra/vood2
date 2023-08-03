@@ -10,7 +10,10 @@ const app = express();
 app.use(cors());
 const port = process.env.PORT;
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://foodvood.onrender.com"
+  );
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -31,7 +34,7 @@ app.post("/api/auth/create-checkout-session", async (req, res) => {
   try {
     const session = await stripe.checkout.sessions.create({
       shipping_address_collection: {
-        allowed_countries: ["US", "CA","IN"], 
+        allowed_countries: ["US", "CA", "IN"],
       },
       payment_method_types: ["card"],
       line_items: [
@@ -47,8 +50,8 @@ app.post("/api/auth/create-checkout-session", async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/failure",
+      success_url: "https://foodvood.onrender.com/success",
+      cancel_url: "https://foodvood.onrender.com/failure",
       customer_email: email,
     });
 
