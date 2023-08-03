@@ -7,17 +7,20 @@ export default function MyOrder() {
 
   const fetchMyOrder = async () => {
     //console.log(localStorage.getItem('userEmail'))
-    await fetch("http://localhost:5000/api/auth/myOrderData", {
-      // credentials: 'include',
-      // Origin:"http://localhost:3000/login",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: localStorage.getItem("userEmail"),
-      }),
-    }).then(async (res) => {
+    await fetch(
+      "https://vood2-production.up.railway.app/api/auth/myOrderData",
+      {
+        // credentials: 'include',
+        // Origin:"http://localhost:3000/login",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: localStorage.getItem("userEmail"),
+        }),
+      }
+    ).then(async (res) => {
       let response = await res.json();
       await setorderData(response);
     });

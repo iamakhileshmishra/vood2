@@ -20,24 +20,27 @@ export default function Cart() {
   
   const handleCheckOut = async () => {
   let userEmail = localStorage.getItem("userEmail");
-  let response = await fetch("http://localhost:5000/api/auth/orderData", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      order_data: data,
-      email: userEmail,
-      order_date: new Date().toDateString(),
-    }),
-  });
+  let response = await fetch(
+    "https://vood2-production.up.railway.app/api/auth/orderData",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order_data: data,
+        email: userEmail,
+        order_date: new Date().toDateString(),
+      }),
+    }
+  );
 
   if (response.status === 200) {
     // Get the Stripe instance
     const stripe = await stripePromise;
     // Create a checkout session
     const session = await fetch(
-      "http://localhost:5000/api/auth/create-checkout-session",
+      "https://vood2-production.up.railway.app/api/auth/create-checkout-session",
       {
         method: "POST",
         headers: {

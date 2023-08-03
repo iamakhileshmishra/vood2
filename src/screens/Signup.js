@@ -24,13 +24,16 @@ export default function Signup() {
       return [latitude, longitude];
     });
     let [lat, long] = latlong;
-    const response = await fetch("http://localhost:5000/api/auth/getlocation", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ latlong: { lat, long } }),
-    });
+    const response = await fetch(
+      "https://vood2-production.up.railway.app/api/auth/getlocation",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ latlong: { lat, long } }),
+      }
+    );
     const { location } = await response.json();
     setAddress(location);
     setCredentials({ ...credentials, [e.target.name]: location });
@@ -38,20 +41,23 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/api/auth/createuser", {
-      // credentials: 'include',
-      // Origin:"http://localhost:3000/login",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: credentials.name,
-        email: credentials.email,
-        password: credentials.password,
-        location: credentials.geolocation,
-      }),
-    });
+    const response = await fetch(
+      "https://vood2-production.up.railway.app/api/auth/createuser",
+      {
+        // credentials: 'include',
+        // Origin:"http://localhost:3000/login",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: credentials.name,
+          email: credentials.email,
+          password: credentials.password,
+          location: credentials.geolocation,
+        }),
+      }
+    );
     const json = await response.json();
     if (json.success) {
       //save the auth toke to local storage and redirect
